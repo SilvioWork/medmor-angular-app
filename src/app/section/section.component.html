@@ -1,0 +1,43 @@
+
+<div class="card border-dark mb-3" >
+  <div class="card-header">
+    <label class="pt-2">Section</label>
+    <button type="button" class="btn btn-img-rounded btn-primary float-end" [routerLink]="['/section/form']">Create Section</button>
+  </div>
+
+  <div class="card-body text-dark">
+    <h5 class="card-title">List of Sections</h5>
+
+    <div  *ngIf="sections?.length == 0" class="alert alert-info" role="alert">
+      Not found recors
+    </div>
+
+    <table class="table table-hover table-bordered" *ngIf="sections.length>0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Size</th>
+          <th>Type Products</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let section of sections, index as i">
+          <td><button type="button" name="button" class="btn btn-success">{{i+1}}</button></td>
+          <td>{{section.size}} m2</td>
+          <td>{{section.typeProduct}}</td>
+          <td>
+            <button type="button" name="button"  class="btn btn-primary" [routerLink]="['/section/form', section.id ]" >Edit</button>
+
+            <button type="button" name="delete" class="btn btn-danger mx-2" (click)='delete(section)'
+            *ngIf="!section.products else elseBlock">Delete</button>
+            <ng-template #elseBlock>
+              <button type="button" name="delete" class="btn btn-danger mx-2" disabled>Delete</button>
+            </ng-template>
+            <button type="button" name="button" [routerLink]="['/product/section', section.id]" class="btn btn-success">View Products</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <paginator-section-nav *ngIf="paginator" [paginator]="paginator"></paginator-section-nav>
+  </div>

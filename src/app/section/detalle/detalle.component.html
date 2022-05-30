@@ -1,0 +1,43 @@
+<div class="card border-dark mb-3" >
+  <div class="card-header">
+    <label class="pt-2">Product</label>
+    <button type="button" class="btn btn-img-rounded btn-primary float-end" [routerLink]="['/product/form']">Create Product</button>
+  </div>
+
+  <div class="card-body text-dark">
+    <h5 class="card-title">List of Product</h5>
+
+    <div  *ngIf="products?.length == 0" class="alert alert-info" role="alert">
+      Not found recors
+    </div>
+
+    <table class="table table-hover table-bordered" *ngIf="products.length>0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Size</th>
+          <th>Color</th>
+          <th>Price</th>
+          <th>Fragile</th>
+          <th>Amount</th>
+          <th>Lot</th>
+          <th>Container Type</th>
+          <th>Section</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products, index as i">
+          <td><button type="button" name="button" class="btn" style="background:{{product.color}}">{{i+1}}</button></td>
+          <td>{{product.size}}</td>
+          <td>{{product.color}}</td>
+          <td>{{product.price}}</td>
+          <td>{{product.fragile}}</td>
+          <td>{{product.amount}}</td>
+          <td>{{product.lot}}</td>
+          <td>{{product.containerType}}</td>
+          <td>{{product.section?.typeProduct}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>

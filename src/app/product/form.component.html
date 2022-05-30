@@ -1,0 +1,97 @@
+<div class="card bg-ligth">
+  <div class="card-header">{{ title }}</div>
+  <div class="card-body">
+
+    <form #form="ngForm" class="row g-3">
+
+      <div class="col-md-3">
+        <label for="size" class="col-form-label">Size</label>
+        <input type="text" class="form-control" [(ngModel)]="product.size" name="size" #size="ngModel" required>
+        <div class="alert alert-danger" role="alert" *ngIf="size.invalid && (size.dirty || size.touched)">
+          <div *ngIf="size.errors?.['required']">
+           Is Required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="amount" class="col-form-label">Amount</label>
+        <input type="number" class="form-control" [(ngModel)]="product.amount" name="amount" #amount="ngModel" required>
+        <div class="alert alert-danger" role="alert" *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+          <div *ngIf="amount.errors?.['required']">
+           Is Required
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="price" class="col-form-label">Price</label>
+        <input type="number" class="form-control" [(ngModel)]="product.price" name="price" #price="ngModel" required>
+        <div class="alert alert-danger" role="alert" *ngIf="price.invalid && (price.dirty || price.touched)">
+          <div *ngIf="price.errors?.['required']">
+           Is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="lot" class="col-form-label">Lot</label>
+        <input type="text" class="form-control" [(ngModel)]="product.lot" name="lot" #lot="ngModel" required>
+        <div class="alert alert-danger" role="alert" *ngIf="lot.invalid && (lot.dirty || lot.touched)">
+          <div *ngIf="lot.errors?.['required']">
+           Is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <label for="color" class="col-form-label">Color</label>
+        <input type="color" class="form-control my-1" [(ngModel)]="product.color" name="color" #color="ngModel" required>
+        <div class="alert alert-danger" role="alert" *ngIf="color.invalid && (color.dirty || color.touched)">
+          <div *ngIf="color.errors?.['required']">
+           Is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="containerType" class="col-form-label">Type Container</label>
+        <select class="form-select" [(ngModel)]="product.containerType" name="containerType">
+          <option *ngFor="let type of containerType | keyvalue, index as i" [ngValue]="type.value" [selected]="i==0">{{type.value}}</option>
+        </select>
+
+      </div>
+
+      <div class="col-md-3">
+        <label for="section" class="col-form-label">Section</label>
+        <select [compareWith]="compareSection" class="form-control" [(ngModel)]="product.section" name="section" #section="ngModel" required>
+          <option [ngValue]="undefined" >--- Select a Section ---</option>
+          <option *ngFor="let section of sections" [ngValue]="section">{{section.typeProduct}} - {{section.size}}m2</option>
+        </select>
+        <div class="alert alert-danger" role="alert" *ngIf="section.invalid && (section.dirty || section.touched)">
+          <div *ngIf="section.errors?.['required']">
+           Is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 pt-5">
+        <div class="form-check form-switch">
+          <input class="form-check-input" [(ngModel)]="product.fragile" name="fragile" type="checkbox" id="flexSwitchCheckChecked" checked>
+          <label class="form-check-label" for="flexSwitchCheckChecked">Is Fragile?</label>
+        </div>
+      </div>
+
+      <div class="row pt-2">
+        <div class="col-sm-6">
+          <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!product.id else elseBlock" [disabled]="!form.form.valid">Create</button>
+          <ng-template #elseBlock>
+            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!form.form.valid">Edit</button>
+          </ng-template>
+        </div>
+
+      </div>
+
+
+    </form>
+
+  </div>
+</div>
